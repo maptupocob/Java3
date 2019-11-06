@@ -21,6 +21,7 @@ public class TestClass {
         for (int i = 0; i < 10; i++) {
             b3.addFruit(new Orange());
         }
+
     }
 
     @Test
@@ -37,5 +38,7 @@ public class TestClass {
         Assert.assertEquals(30., b3.getWeight(), 0.0001);
         Assert.assertEquals(0., b1.getWeight(), 0.0001);
     }
+
+
 
 }
