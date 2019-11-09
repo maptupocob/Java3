@@ -16,11 +16,11 @@ public class DBClass {
             System.out.println(rs.getString("maker") + " "
             + rs.getInt("model") + " " + rs.getString("type"));
         }
-        stmt.execute("CREATE table IF NOT EXISTS users(id INTEGER, name TEXT);");
+        stmt.execute("CREATE table IF NOT EXISTS users(id INTEGER PRIMARY KEY AUTOINCREMENT UNIQUE , name TEXT);");
         //PreparedStatement ps = conn.prepareStatement("INSERT INTO users(id, name) values(?, ?);");
         for (int i = 0; i < 100; i++) {
             User u = new User(i+1, "Ivan " + (i + 1));
-            stmt.executeUpdate("INSERT INTO users(id, name) VALUES (" + u.getId() +", '" +u.getName() +"');");
+            stmt.executeUpdate("INSERT INTO users(name) VALUES ('" +u.getName() +"');");
         }
         //System.out.println(Arrays.toString(ps.executeBatch()));
         //rs = stmt.executeQuery("SELECT * FROM users");
