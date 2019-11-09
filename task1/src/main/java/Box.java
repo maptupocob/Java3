@@ -1,26 +1,35 @@
-package java;
-
 import java.util.ArrayList;
+import java.util.Iterator;
 
-public class Box<T> {
+public class Box<T extends Fruit> {
+    ArrayList<T> list;
 
-    //используте ArrayList для хранения фруктов
-
-    public float getWeight(){
-        //TODO
-        return 0;
+    public Box() {
+        list = new ArrayList<>();
     }
 
-    public boolean compareTo(Box<T> other){
-        //TODO
-        return false;
+    public float getWeight() {
+        float sum = 0f;
+        for (T fruit : list) {
+            sum += fruit.getWeight();
+        }
+        return sum;
     }
 
-    public void addFruit(T fruit){
-        //TODO
+    public boolean compareTo(Box<? extends Fruit> other) {
+        return (this.getWeight() - other.getWeight()) == 0;
     }
 
-    public void dropFruits(Box<T> otherBox){
-        //TODO
+    public void addFruit(T fruit) {
+        list.add(fruit);
+    }
+
+    public void dropFruits(Box<T> otherBox) {
+        Iterator<T> iterator = list.iterator();
+        while (iterator.hasNext()){
+            T fruit= iterator.next();
+            otherBox.addFruit(fruit);
+            iterator.remove();
+        }
     }
 }
