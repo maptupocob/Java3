@@ -1,10 +1,7 @@
 import java.util.LinkedList;
 import java.util.concurrent.atomic.AtomicInteger;
 
-public class TaskRunner implements Runnable{
-
-    //TODO
-
+public class TaskRunner implements Runnable {
     Object mutex;   //монитор синхронизации
     String message; //сообщение которое поток будет добавлять в список
 
@@ -28,7 +25,25 @@ public class TaskRunner implements Runnable{
 
     @Override
     public void run() {
-        //TODO
+        while (true) {
+            synchronized (mutex) {
+                if (iter % 3 == cnt) {
+                    list.add(message);
+                    iter++;
+                    mutex.notifyAll();
+                } else {
+                    try {
+                        mutex.wait();
+                    } catch (InterruptedException e) {
+                        e.printStackTrace();
+                    }
+                }
+                try {
+                    Thread.sleep(100);
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                }
+            }
+        }
     }
-
 }
