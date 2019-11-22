@@ -8,7 +8,7 @@ public class MainClass {
     public static CountDownLatch waitForAllCarsPrepared = new CountDownLatch(CARS_COUNT);
     public static CountDownLatch waitForRaceIsEnd = new CountDownLatch(CARS_COUNT);
     public static CountDownLatch waitForSignalToStartRace = new CountDownLatch(1);
-    public static int winnerPrize = 1;
+    public volatile static int winnerPrize = 1;
 
     public static void main(String[] args) {
 

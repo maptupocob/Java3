@@ -6,6 +6,7 @@ public class Road extends Stage {
         this.isLastStage = isLastStage;
         this.description = "Дорога " + length + " метров";
     }
+
     @Override
     public void go(Car c) {
         try {
