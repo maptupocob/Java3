@@ -26,15 +26,15 @@ public class TestsInvoker {
             if (beforeMethods.size() > 1) {
                 throw new RuntimeException("More than 1 method annotated BeforeSuit");
             } else {
-                beforeMethods.get(0).invoke(tests, (Object) null);
+                beforeMethods.get(0).invoke(tests);
             }
             for (Method testMethod : testMethods) {
-                testMethod.invoke(tests, (Object) null);
+                testMethod.invoke(tests);
             }
             if (afterMethods.size() > 1) {
                 throw new RuntimeException("More than 1 method annotated AfterSuit");
             } else {
-                afterMethods.get(0).invoke(tests, (Object) null);
+                afterMethods.get(0).invoke(tests);
             }
         } catch (IllegalAccessException | InvocationTargetException e) {
             e.printStackTrace();
