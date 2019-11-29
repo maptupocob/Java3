@@ -1,17 +1,22 @@
+import com.google.gson.Gson;
+
+import javax.xml.bind.JAXBContext;
+import javax.xml.bind.JAXBException;
+import javax.xml.bind.Marshaller;
 import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.ObjectInputStream;
+import java.io.StringWriter;
+import java.lang.reflect.Field;
 
 public class ObjectInfo {
-
-    private Object[] objects;
-    private int counter;
-
     //Use your path
     //Объект неизвестен)))
-
-    private String path = "/Users/levinmk/IdeaProjects/Java3" +
+    private String path = "/Users/maptu/IdeaProjects/Java3" +
             "/task7/src/main/resources/";
+    private Object[] objects;
+    private int counter;
+    private Gson gson = new Gson();
 
     public ObjectInfo() {
         objects = new Object[2];
@@ -55,8 +60,25 @@ public class ObjectInfo {
      * типN имя_поляN : значениеN
      * */
     public String objectInfo() {
-        // TODO: 18/11/2019
-        return null;
+        System.out.println(counter + " object");
+        System.out.println(getInstance().getClass().getName());
+        StringBuilder stringBuilder = new StringBuilder();
+        Class cl = getInstance().getClass();
+        Field[] fields = cl.getDeclaredFields();
+        for (Field field : fields) {
+            field.setAccessible(true);
+            stringBuilder.append(field.getType().getName());
+            stringBuilder.append(" ");
+            stringBuilder.append(field.getName());
+            stringBuilder.append(" : ");
+            try {
+                stringBuilder.append(field.get(getInstance()));
+            } catch (IllegalAccessException e) {
+                e.printStackTrace();
+            }
+            stringBuilder.append("\n");
+        }
+        return stringBuilder.toString();
     }
 
     /*
@@ -64,8 +86,7 @@ public class ObjectInfo {
      * посмотрите на импорты)))
      * */
     public String JSONInfo() {
-        // TODO: 18/11/2019
-        return null;
+        return gson.toJson(getInstance());
     }
 
     /*
@@ -75,7 +96,18 @@ public class ObjectInfo {
      * */
     public String XMLInfo() {
         // TODO: 18/11/2019
-        return null;
+        try {
+            JAXBContext jaxbContext = JAXBContext.newInstance(getInstance().getClass());
+            Marshaller jaxbMarshaller = jaxbContext.createMarshaller();
+            jaxbMarshaller.setProperty(Marshaller.JAXB_FORMATTED_OUTPUT, Boolean.TRUE);
+            StringWriter sw = new StringWriter();
+            jaxbMarshaller.marshal(getInstance(), sw);
+            String xmlString = sw.toString();
+            return xmlString;
+        } catch (JAXBException e) {
+            e.printStackTrace();
+            return null;
+        }
     }
 
     private void readInstances(ObjectInputStream is) throws IOException, ClassNotFoundException {
