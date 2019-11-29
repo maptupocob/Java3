@@ -1,19 +1,19 @@
 package annotation;
 
-public class Utility {
+class Utility {
 
     private int a, b;
 
-    public Utility(int a, int b) {
+    Utility(int a, int b) {
         this.a = a;
         this.b = b;
     }
 
-    public int getA() {
+    int getA() {
         return a;
     }
 
-    public int getB() {
+    int getB() {
         return b;
     }
 

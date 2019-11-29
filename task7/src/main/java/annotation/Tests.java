@@ -1,9 +1,9 @@
 package annotation;
 
 public class Tests {
-    boolean allTestsPassed = true;
+    private boolean allTestsPassed = true;
 
-    Utility util;
+    private Utility util;
 
     @BeforeSuit
     public void starter() {
