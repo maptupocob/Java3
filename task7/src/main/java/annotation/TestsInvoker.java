@@ -11,8 +11,7 @@ public class TestsInvoker {
 
     public void invokeTests(Class c) {
         Tests tests = new Tests();
-        Class cl = Tests.class;
-        Method[] methods = cl.getDeclaredMethods();
+        Method[] methods = c.getDeclaredMethods();
 
         List<Method> beforeMethods = new ArrayList<>();
         List<Method> afterMethods = new ArrayList<>();
